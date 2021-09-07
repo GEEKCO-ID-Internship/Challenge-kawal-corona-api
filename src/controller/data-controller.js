@@ -29,7 +29,7 @@ const initData = async (error, result) => {
 }
 
 const scheduler = () => {
-    cron.schedule('* * * * *', async (error, result) => {
+    cron.schedule('00 00 01 * * *', async (error, result) => {
         console.log('running update');
         const data = await fetchCoronaData();
         data.forEach( async (report) => {
