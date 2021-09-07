@@ -29,7 +29,8 @@ const initData = async (error, result) => {
 }
 
 const scheduler = () => {
-    cron.schedule('00 00 01 * * *', async (error, result) => {
+    cron.schedule('* * * * *', async (error, result) => {
+        console.log('running update');
         const data = await fetchCoronaData();
         data.forEach( async (report) => {
             const coronaReport = await CoronaReport.findOne({FID: report.attributes.FID});
@@ -38,11 +39,11 @@ const scheduler = () => {
                 return error;
             }
     
-            coronaReport.kode_provinsi = report.attributes.Kode_Provi,
-            coronaReport.provinsi = report.attributes.Provinsi,
-            coronaReport.kasus_positif = report.attributes.Kasus_Posi,
-            coronaReport.kasus_sembuh = report.attributes.Kasus_Semb,
-            coronaReport.kasus_meninggal = report.attributes.Kasus_Meni
+            coronaReport.kode_provinsi = report.attributes.Kode_Provi;
+            coronaReport.provinsi = report.attributes.Provinsi;
+            coronaReport.kasus_positif = report.attributes.Kasus_Posi;
+            coronaReport.kasus_sembuh = report.attributes.Kasus_Semb;
+            coronaReport.kasus_meninggal = report.attributes.Kasus_Meni;
             
             try {
                 await coronaReport.save();
